@@ -19,6 +19,7 @@ const Users = ({ users, userId })=> {
           );
         })
       }
+      <button>Add User</button>
     </ul>
   );
 }
