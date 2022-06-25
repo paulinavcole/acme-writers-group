@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const { User, Story } = require('./db');
 const path = require('path');
+const { createSecretKey } = require('crypto');
+const { restart } = require('nodemon');
 
 app.use('/dist', express.static('dist'));
 
@@ -42,11 +44,40 @@ app.get('/api/users/:id/stories', async(req, res, next)=> {
   }
 });
 
+app.delete('/api/users/:id/stories' , async(req, res, next) => {
+  try {
+    const user = await Story.findByPk(req.params.id);
+    await user.destroy();
+    res.sendStatus(204);
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
+app.post('/api/users/:id/stories' , async(req, res, next) => {
+  try {
+    res.status(201).send(await Story.create(req.body))
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
 app.delete('/api/users/:id' , async(req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     await user.destroy();
     res.sendStatus(204);
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
+app.post('/api/users/:id' , async(req, res, next) => {
+  try {
+    res.status(201).send(await User.create(req.body))
   }
   catch(ex){
     next(ex);
