@@ -14,6 +14,7 @@ const Users = ({ users, userId })=> {
               <a href={`#${user.id}`}>
                 { user.name }
               </a>
+              <button>X</button>
             </li>
           );
         })
