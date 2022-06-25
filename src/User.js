@@ -43,8 +43,9 @@ class User extends Component{
                   <p>
                   { story.body }
                   </p>
+                  <button>Delete Story</button>
                 </li>
-
+              
               );
             })
           }
