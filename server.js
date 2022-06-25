@@ -75,7 +75,7 @@ app.delete('/api/users/:id' , async(req, res, next) => {
   }
 });
 
-app.post('/api/users/:id' , async(req, res, next) => {
+app.post('/api/users' , async(req, res, next) => {
   try {
     res.status(201).send(await User.create(req.body))
   }
