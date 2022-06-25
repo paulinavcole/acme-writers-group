@@ -49,6 +49,7 @@ class User extends Component{
             })
           }
         </ul>
+        <button>Add Story</button>
       </div>
     );
   }
