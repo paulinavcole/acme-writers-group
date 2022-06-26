@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import axios from 'axios';
 import Users from './Users';
 import User from './User';
-
+import { deleteUser } from './api';
 
 class App extends Component{
   constructor(){
@@ -12,7 +12,8 @@ class App extends Component{
       users: [],
       userId: ''
     };
-  }
+    this.deleteAUser = this.deleteAUser.bind(this);
+}
   async componentDidMount(){
     try {
       const userId = window.location.hash.slice(1);
@@ -27,15 +28,21 @@ class App extends Component{
     catch(ex){
       console.log(ex);
     }
-
   }
+  async deleteAUser(user){
+    await deleteUser(user.id);
+    const users = this.state.users.filter(_user => _user.id !== user.id);
+    this.setState({users})
+  }
+  
   render(){
     const { users, userId } = this.state;
+    const { deleteAUser } = this
     return (
       <div>
         <h1>Acme Writers Group ({ users.length })</h1>
         <main>
-          <Users users = { users } userId={ userId }/>
+          <Users users = { users } deleteAUser= { deleteAUser } userId={ userId }/>
           {
             userId ? <User userId={ userId } /> : null
           }

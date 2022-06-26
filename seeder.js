@@ -1,6 +1,6 @@
 var pgtools = require("pgtools");
 const config = {
-    user: process.env.USER || "postgress",
+    user: process.env.USER || "postgres",
     host: process.env.HOST || "localhost",
     password: process.env.PASSWORD || "",
     port: process.env.PORT || 5432
