@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import axios from 'axios';
 import Users from './Users';
 import User from './User';
-import { deleteUser } from './api';
+import { deleteUser, createUser } from './api';
 
 class App extends Component{
   constructor(){
@@ -13,6 +13,7 @@ class App extends Component{
       userId: ''
     };
     this.deleteAUser = this.deleteAUser.bind(this);
+    this.createAUser = this.createAUser.bind(this)
 }
   async componentDidMount(){
     try {
@@ -34,13 +35,19 @@ class App extends Component{
     const users = this.state.users.filter(_user => _user.id !== user.id);
     this.setState({users})
   }
+  async createAUser(){
+    const user = await createUser();
+    const users = [...this.state.users, user];
+    this.setState({ users });
+  }
   
   render(){
     const { users, userId } = this.state;
-    const { deleteAUser } = this
+    const { deleteAUser, createAUser } = this
     return (
       <div>
         <h1>Acme Writers Group ({ users.length })</h1>
+        <button onClick={ createAUser }>Create A User</button>
         <main>
           <Users users = { users } deleteAUser= { deleteAUser } userId={ userId }/>
           {

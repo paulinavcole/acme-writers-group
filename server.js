@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const { User, Story } = require('./db');
 const path = require('path');
-const { createSecretKey } = require('crypto');
 const { restart } = require('nodemon');
+const {createRandomUser} = require('./seed-data')
 
 app.use('/dist', express.static('dist'));
 
@@ -77,7 +77,7 @@ app.delete('/api/users/:id' , async(req, res, next) => {
 
 app.post('/api/users' , async(req, res, next) => {
   try {
-    res.status(201).send(await User.create(req.body))
+    res.status(201).send(await User.create(createRandomUser()));
   }
   catch(ex){
     next(ex);

@@ -4,6 +4,12 @@ const deleteUser = (id) => {
     return axios.delete(`/api/users/${id}`);
 }
 
-export {
-    deleteUser
+const createUser = async(user)=> {
+    const response = await axios.post('/api/users', user);
+    return response.data
+}
+
+module.exports = {
+    deleteUser,
+    createUser
 }
