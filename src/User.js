@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { deleteStory } from './api'
 
 class User extends Component{
   constructor(){
@@ -8,6 +9,7 @@ class User extends Component{
       user: {},
       stories: [] 
     };
+    this.deleteAStory = this.deleteAStory.bind(this)
   }
   async componentDidMount(){
     let response = await axios.get(`/api/users/${this.props.userId}`);
@@ -25,11 +27,15 @@ class User extends Component{
       
     }
   }
+  async deleteAStory(story){
+    await deleteStory(story.id);
+    const stories = this.state.stories.filter(_story => _story.id !== story.id);
+    this.setState({stories})
+  }
   
   render(){
     const { user, stories } = this.state;
-    //console.log(stories);
-  
+    const { deleteAStory } = this
     return (
       <div>
         Details for { user.name }
@@ -45,7 +51,7 @@ class User extends Component{
                   <p>
                   { story.body }
                   </p>
-                  <button>Delete Story</button>
+                  <button type="submit" onClick={() => { deleteAStory(story) }}>DELETE STORY</button>
                 </li>
               
               );

@@ -9,7 +9,12 @@ const createUser = async(user)=> {
     return response.data
 }
 
+const deleteStory = (id) => {
+    return axios.delete(`/api/stories/${id}`);
+}
+
 module.exports = {
     deleteUser,
-    createUser
+    createUser,
+    deleteStory
 }

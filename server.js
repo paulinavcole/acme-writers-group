@@ -44,7 +44,7 @@ app.get('/api/users/:id/stories', async(req, res, next)=> {
   }
 });
 
-app.delete('/api/users/:id/stories' , async(req, res, next) => {
+app.delete('/api/stories/:id' , async(req, res, next) => {
   try {
     const user = await Story.findByPk(req.params.id);
     await user.destroy();
