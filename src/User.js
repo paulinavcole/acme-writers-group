@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { deleteStory } from './api'
+import { deleteStory, createStory } from './api';
 
 class User extends Component{
   constructor(){
@@ -9,7 +9,8 @@ class User extends Component{
       user: {},
       stories: [] 
     };
-    this.deleteAStory = this.deleteAStory.bind(this)
+    this.deleteAStory = this.deleteAStory.bind(this);
+    this.createAStory = this.createAStory.bind(this);
   }
   async componentDidMount(){
     let response = await axios.get(`/api/users/${this.props.userId}`);
@@ -32,10 +33,15 @@ class User extends Component{
     const stories = this.state.stories.filter(_story => _story.id !== story.id);
     this.setState({stories})
   }
+  async createAStory(){
+    const story = await createStory();
+    const stories = [...this.state.stories, story];
+    this.setState({ stories });
+  }
   
   render(){
     const { user, stories } = this.state;
-    const { deleteAStory } = this
+    const { deleteAStory, createAStory } = this
     return (
       <div>
         Details for { user.name }
@@ -58,7 +64,7 @@ class User extends Component{
             })
           }
         </ul>
-        <button>Add Story</button>
+        <button type="submit" onClick={() => { createAStory}}>CREATE STORY</button>
       </div>
     );
   }

@@ -13,7 +13,7 @@ class App extends Component{
       userId: ''
     };
     this.deleteAUser = this.deleteAUser.bind(this);
-    this.createAUser = this.createAUser.bind(this)
+    this.createAUser = this.createAUser.bind(this);
 }
   async componentDidMount(){
     try {

@@ -3,7 +3,7 @@ const app = express();
 const { User, Story } = require('./db');
 const path = require('path');
 const { restart } = require('nodemon');
-const {createRandomUser} = require('./seed-data')
+const {createRandomUser, createRandomStory} = require('./seed-data')
 
 app.use('/dist', express.static('dist'));
 
@@ -57,7 +57,7 @@ app.delete('/api/stories/:id' , async(req, res, next) => {
 
 app.post('/api/users/:id/stories' , async(req, res, next) => {
   try {
-    res.status(201).send(await Story.create(req.body))
+    res.status(201).send(await Story.create(createRandomStory()));
   }
   catch(ex){
     next(ex);
