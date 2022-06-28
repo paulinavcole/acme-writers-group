@@ -55,7 +55,7 @@ app.delete('/api/stories/:id' , async(req, res, next) => {
   }
 });
 
-app.post('/api/users/:id/stories' , async(req, res, next) => {
+app.post('/api/users/:userId/stories', async(req, res, next)=> {
   try {
     res.status(201).send(await Story.create(createRandomStory()));
   }

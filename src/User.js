@@ -34,7 +34,7 @@ class User extends Component{
     this.setState({stories})
   }
   async createAStory(){
-    const story = await createStory();
+    const story = await createStory(this.props.userId);
     const stories = [...this.state.stories, story];
     this.setState({ stories });
   }
@@ -59,12 +59,14 @@ class User extends Component{
                   </p>
                   <button type="submit" onClick={() => { deleteAStory(story) }}>DELETE STORY</button>
                 </li>
+                
               
               );
             })
+            
           }
         </ul>
-        <button type="submit" onClick={() => { createAStory}}>CREATE STORY</button>
+        <button type="submit" onClick={() => { createAStory()}}>CREATE STORY</button>
       </div>
     );
   }

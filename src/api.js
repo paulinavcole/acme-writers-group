@@ -13,8 +13,8 @@ const deleteStory = (id) => {
     return axios.delete(`/api/stories/${id}`);
 }
 
-const createStory = async({story, userId}) => {
-    const response = await axios.post(`/api/users/${userId}/stories`, {story});
+const createStory = async({user, story}) => {
+    const response = await axios.post(`/api/users/${user}/stories/`, story);
     return response.data
 }
 
